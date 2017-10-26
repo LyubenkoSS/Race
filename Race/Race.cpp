@@ -17,11 +17,11 @@ static const int flowDelay = 400;
 
 int main(int argc, char* argv[])
 {	
-  Trace t(20, 15);
-  t.getTrace();
-  Car car(t);
+  Trace trace(20, 15);
+  trace.getTrace();
+  Car car(trace);
   car.drawCar();	
-  Obstacles obstacle(t);
+  Obstacles obstacle(trace);
   obstacle.drawObstacles();
 	
   int speed = 1;
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
 	  if (car.isCarCrashed()) {
 		exit = false;
 	  }
-	  t.displayTrace();
+	  trace.displayTrace();
 	  unsigned int end_time = clock();
 	  time = end_time - start_time;
       distance++;
