@@ -11,7 +11,7 @@
 Car::Car(Trace& t) {
   trace = &t;
   xCoordinate = trace->getWidth() / 2;
-  yCoordinate = trace->getLength() - 5;
+  yCoordinate = trace->getLength() - bottomMargin;
   car.reserve(8);
 };
 
@@ -70,7 +70,7 @@ void Car::turnRight()
 
 bool Car::canMuveLeft() const 
 {
-  if (xCoordinate >= 3) {
+  if (xCoordinate >= leftMargin) {
 	return true;
   }
   return false;
@@ -78,7 +78,7 @@ bool Car::canMuveLeft() const
 
 bool Car::canMuveRight() const 
 {
-  if (xCoordinate <= trace->getWidth() - 4) {
+  if (xCoordinate <= trace->getWidth() - rightMargin) {
 	return true;
   }
   return false;

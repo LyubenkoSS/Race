@@ -11,6 +11,9 @@
 using namespace std;
 
 void clearscreen();
+static const int step = 20;
+static const int maximalSpeed = 19;
+static const int flowDelay = 400;
 
 int main(int argc, char* argv[])
 {	
@@ -45,7 +48,7 @@ int main(int argc, char* argv[])
 	  car.turnRight();
 	}
 	if (GetAsyncKeyState(VK_UP)) {
-	  if (speed < 19) speed++;
+	  if (speed < maximalSpeed) speed++;
 	}
 	if (GetAsyncKeyState(VK_DOWN)) {
 	  if (speed != 1) speed--;
@@ -62,14 +65,14 @@ int main(int argc, char* argv[])
 	  cout << "distance: " << distance << "m" << endl;
       cout << "speed: " << speed << endl;
 	  cout << "time: " << time / 1000 << "c" << endl;
-	  Sleep(400 - speed * 20);
+	  Sleep(flowDelay - speed * step);
       clearscreen();
 	}
 	else {
 	  clearscreen();
 	  cout << "Pause";
 	  clearscreen();
-	  Sleep(500);				
+	  Sleep(flowDelay);
     }
   }
   if (car.isCarCrashed()) {

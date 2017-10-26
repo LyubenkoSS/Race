@@ -20,6 +20,8 @@ private:
   Trace* trace;
   static const char obstacleBody = 176;
   static const char area = 32;
+  static const int rightMargin = 3; //Indentation on the right, taking into account the wall of the route and the width of the obstacle
+  static const int bottomMargin = 2;
   int xCoordinate;
   int yCoordinate;
 };

@@ -25,8 +25,5 @@ private:
   const int minLengthOfTrace = 10;
   const int minWidthOfTrace = 10;
 };
-
-
-
 #endif // !TRACE_H
 

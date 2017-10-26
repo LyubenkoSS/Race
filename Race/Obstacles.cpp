@@ -13,7 +13,7 @@ Obstacles::Obstacles(Trace& t)
   srand(time(0));
   trace = &t;
   yCoordinate = 0;
-  xCoordinate = rand() % (trace->getWidth() - 3) + 1;
+  xCoordinate = rand() % (trace->getWidth() - rightMargin) + 1;
 }
 
 void Obstacles::drawObstacles()
@@ -36,12 +36,12 @@ void Obstacles::next()
 {
   clearArea();
   yCoordinate++;
-  if (yCoordinate < trace->getLength() - 2) {
+  if (yCoordinate < trace->getLength() - bottomMargin) {
     yCoordinate++;
   }
   else {
     yCoordinate = 0;
-	xCoordinate = rand() % (trace->getWidth() - 3) + 1;
+	xCoordinate = rand() % (trace->getWidth() - rightMargin) + 1;
   }
   drawObstacles();
 }
