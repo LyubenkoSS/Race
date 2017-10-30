@@ -4,12 +4,22 @@
 #include <iostream>
 
 #include "Trace.h"
+#include "PixelFiller.h"
 
 Trace::Trace(int length, int width) : 
 	length(length = (length > minLengthOfTrace ? length : minLengthOfTrace)),
 	width(width = (width > minWidthOfTrace ? width : minWidthOfTrace)),
 	traceForRace(length) 
 {}	
+
+Trace& Trace::operator= (Trace&& t) 
+{
+  if (this != &t) {
+	  this->length = t.getLength();
+	  this->width = t.getWidth();
+  }
+  return *this;
+};
 
 vector<vector <char>>&  Trace::getTrace()
 {
@@ -35,10 +45,10 @@ void Trace::createTrace(int width)
     vector<char> widthOfTrace(width);
 	for (auto j = widthOfTrace.begin(); j < widthOfTrace.end(); ++j){
 	  if (j == widthOfTrace.begin() || j == (widthOfTrace.end() - 1)) {
-	    *j = static_cast<char> (WALL);
+	    *j = static_cast<char> (PixelFiller::TRACE_WALL);
 	  }
 	  else {
-	    *j = static_cast<char> (SPACE);
+	    *j = static_cast<char> (PixelFiller::TRACE_SPACE);
 	  }
 	}
 	*i = widthOfTrace;

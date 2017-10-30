@@ -7,6 +7,7 @@
 
 #include "Trace.h"
 #include "Obstacles.h"
+#include "PixelFiller.h"
 
 Obstacles::Obstacles(Trace& t)
 {
@@ -18,18 +19,18 @@ Obstacles::Obstacles(Trace& t)
 
 void Obstacles::drawObstacles()
 {
-  trace->getTrace()[yCoordinate][xCoordinate] = obstacleBody;  
-  trace->getTrace()[yCoordinate + 1][xCoordinate] = obstacleBody;
-  trace->getTrace()[yCoordinate + 1][xCoordinate + 1] = obstacleBody;
-  trace->getTrace()[yCoordinate][xCoordinate + 1] = obstacleBody;
+  trace->getTrace()[yCoordinate][xCoordinate] = static_cast<char> (PixelFiller::OBSTACLE_BODY);
+  trace->getTrace()[yCoordinate + 1][xCoordinate] = static_cast<char> (PixelFiller::OBSTACLE_BODY);
+  trace->getTrace()[yCoordinate + 1][xCoordinate + 1] = static_cast<char> (PixelFiller::OBSTACLE_BODY);
+  trace->getTrace()[yCoordinate][xCoordinate + 1] = static_cast<char> (PixelFiller::OBSTACLE_BODY);
 }
 
 void Obstacles::clearArea() 
 {
-  trace->getTrace()[yCoordinate][xCoordinate] = area;
-  trace->getTrace()[yCoordinate + 1][xCoordinate] = area;
-  trace->getTrace()[yCoordinate + 1][xCoordinate + 1] = area;
-  trace->getTrace()[yCoordinate][xCoordinate + 1] = area;
+  trace->getTrace()[yCoordinate][xCoordinate] = static_cast<char> (PixelFiller::TRACE_SPACE);
+  trace->getTrace()[yCoordinate + 1][xCoordinate] = static_cast<char> (PixelFiller::TRACE_SPACE);
+  trace->getTrace()[yCoordinate + 1][xCoordinate + 1] = static_cast<char> (PixelFiller::TRACE_SPACE);
+  trace->getTrace()[yCoordinate][xCoordinate + 1] = static_cast<char> (PixelFiller::TRACE_SPACE);
 }
 
 void Obstacles::next()
