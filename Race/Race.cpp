@@ -8,90 +8,25 @@
 #include "Trace.h"
 #include "Car.h"
 #include "Obstacles.h"
-using namespace std;
-
-void clearscreen();
-static const int STEP = 20;
-static const int MAXIMAL_SPEED = 19;
-static const int FLOW_DELAY = 400;
+#include "StatisticData.h"
+#include "RaceController.h"
+#include "Constants.h"
+#include "RaceView.h"
 
 int main(int argc, char* argv[])
 {	
   Trace trace(20, 15);
   trace.getTrace();
+
   Car car(trace);
   car.drawCar();	
+
   Obstacles obstacle(trace);
-  obstacle.drawObstacles();
-	
-  int speed = 1;
-  int distance = 0;
-  unsigned int time = 0;	
+  obstacle.drawObstacles();  
 
-  unsigned int start_time = clock();
+  RaceController controller(trace, car, obstacle);
+  controller.startGame();
 
-  bool crashedCar = false;
-  bool exit = true;
-  bool pause = true;
-
-  while (exit){
-	if (GetAsyncKeyState(VK_RETURN)) {
-	  pause = !pause;				
-	}
-	if (GetAsyncKeyState(VK_ESCAPE)) {
-	  exit = false;
-	}
-	if (GetAsyncKeyState(VK_LEFT)) {
-	  car.turnLeft();
-	}
-	if (GetAsyncKeyState(VK_RIGHT)) {
-	  car.turnRight();
-	}
-	if (GetAsyncKeyState(VK_UP)) {
-	  if (speed < MAXIMAL_SPEED) speed++;
-	}
-	if (GetAsyncKeyState(VK_DOWN)) {
-	  if (speed != 1) speed--;
-	}
-	if (pause) {			
-	  obstacle.next();
-	  if (car.isCarCrashed()) {
-		exit = false;
-	  }
-	  trace.displayTrace();
-	  unsigned int end_time = clock();
-	  time = end_time - start_time;
-      distance++;
-	  cout << "distance: " << distance << "m" << endl;
-      cout << "speed: " << speed << endl;
-	  cout << "time: " << time / 1000 << "c" << endl;
-	  Sleep(FLOW_DELAY - speed * STEP);
-      clearscreen();
-	}
-	else {
-	  clearscreen();
-	  cout << "Pause";
-	  clearscreen();
-	  Sleep(FLOW_DELAY);
-    }
-  }
-  if (car.isCarCrashed()) {
-    cout << "Car Crash" << endl;
-	cout << "Game Over" << endl;
-  }
-  else {
-    cout << "OUT" << endl;
-  }	
   system("pause");
   return 0;
-}
-
-void clearscreen()
-{
-  HANDLE hOut;
-  COORD Position;
-  hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-  Position.X = 0;
-  Position.Y = 0;
-  SetConsoleCursorPosition(hOut, Position);
 }

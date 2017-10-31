@@ -1,53 +1,48 @@
 #include "stdafx.h"
 
-#include <vector>
-#include <algorithm>
-#include <iostream>
-#include <map>
-
 #include "Trace.h"
 #include "Car.h"
-#include "PixelFiller.h"
+#include "Constants.h"
 
-Car::Car(Trace& t) {
-  trace = &t;
-  xCoordinate = trace->getWidth() / 2;
-  yCoordinate = trace->getLength() - bottomMargin;
-  car.reserve(carBodyCountPixels);
+Car::Car(Trace& t) : trace_(t)
+{
+  xCoordinate_ = trace_.getWidth() / 2;
+  yCoordinate_ = trace_.getLength() - INT_CONST::CAR_BOTTOM_MARGIN;
+  _car.reserve(INT_CONST::CAR_BODY_COUNT_PIXELS);
 };
 
 void Car::drawCar() {	
-  trace->getTrace()[yCoordinate][xCoordinate] = static_cast<char>(PixelFiller::CAR_BODY);
-  car.push_back(&trace->getTrace()[yCoordinate][xCoordinate]);
+  trace_.getTrace()[yCoordinate_][xCoordinate_] = PIXEL::CAR_BODY_PIXEL;
+  _car.push_back(&trace_.getTrace()[yCoordinate_][xCoordinate_]);
 
-  trace->getTrace()[yCoordinate + 1][xCoordinate] = static_cast<char>(PixelFiller::CAR_BODY);
-  car.push_back(&trace->getTrace()[yCoordinate + 1][xCoordinate]);
+  trace_.getTrace()[yCoordinate_ + 1][xCoordinate_] = PIXEL::CAR_BODY_PIXEL;
+  _car.push_back(&trace_.getTrace()[yCoordinate_ + 1][xCoordinate_]);
 
-  trace->getTrace()[yCoordinate + 2][xCoordinate] = static_cast<char>(PixelFiller::CAR_BODY);
-  car.push_back(&trace->getTrace()[yCoordinate + 2][xCoordinate]);
+  trace_.getTrace()[yCoordinate_ + 2][xCoordinate_] = PIXEL::CAR_BODY_PIXEL;
+  _car.push_back(&trace_.getTrace()[yCoordinate_ + 2][xCoordinate_]);
 
-  trace->getTrace()[yCoordinate + 3][xCoordinate] = static_cast<char>(PixelFiller::CAR_BODY);
-  car.push_back(&trace->getTrace()[yCoordinate + 3][xCoordinate]);
+  trace_.getTrace()[yCoordinate_ + 3][xCoordinate_] = PIXEL::CAR_BODY_PIXEL;
+  _car.push_back(&trace_.getTrace()[yCoordinate_ + 3][xCoordinate_]);
 
-  trace->getTrace()[yCoordinate + 1][xCoordinate - 1] = static_cast<char>(PixelFiller::CAR_BODY);
-  car.push_back(&trace->getTrace()[yCoordinate + 1][xCoordinate - 1]);
+  trace_.getTrace()[yCoordinate_ + 1][xCoordinate_ - 1] = PIXEL::CAR_BODY_PIXEL;
+  _car.push_back(&trace_.getTrace()[yCoordinate_ + 1][xCoordinate_ - 1]);
 
-  trace->getTrace()[yCoordinate + 1][xCoordinate + 1] = static_cast<char>(PixelFiller::CAR_BODY);
-  car.push_back(&trace->getTrace()[yCoordinate + 1][xCoordinate + 1]);
+  trace_.getTrace()[yCoordinate_ + 1][xCoordinate_ + 1] = PIXEL::CAR_BODY_PIXEL;
+  _car.push_back(&trace_.getTrace()[yCoordinate_ + 1][xCoordinate_ + 1]);
 
-  trace->getTrace()[yCoordinate + 3][xCoordinate - 1] = static_cast<char>(PixelFiller::CAR_BODY);
-  car.push_back(&trace->getTrace()[yCoordinate + 3][xCoordinate - 1]);
+  trace_.getTrace()[yCoordinate_ + 3][xCoordinate_ - 1] = PIXEL::CAR_BODY_PIXEL;
+  _car.push_back(&trace_.getTrace()[yCoordinate_ + 3][xCoordinate_ - 1]);
 
-  trace->getTrace()[yCoordinate + 3][xCoordinate + 1] = static_cast<char>(PixelFiller::CAR_BODY);
-  car.push_back(&trace->getTrace()[yCoordinate + 3][xCoordinate + 1]);
+  trace_.getTrace()[yCoordinate_ + 3][xCoordinate_ + 1] = PIXEL::CAR_BODY_PIXEL;
+  _car.push_back(&trace_.getTrace()[yCoordinate_ + 3][xCoordinate_ + 1]);
 }
 
 void Car::clearArea() 
 {	
-  for (auto it = car.begin(); it < car.end(); ++it) {
-    *(*it) = ' ';
+  for (auto it = _car.begin(); it < _car.end(); ++it) {
+    *(*it) = PIXEL::TRACE_SPACE_PIXEL;
   }
-  car.clear();
+  _car.clear();
 }
 
 
@@ -55,7 +50,7 @@ void Car::turnLeft()
 {
   clearArea();
   if (canMuveLeft()) {
-    xCoordinate--;
+    xCoordinate_--;
   }	
   drawCar();
 }
@@ -64,14 +59,15 @@ void Car::turnRight()
 {
   clearArea();
   if (canMuveRight()) {
-    xCoordinate++;
+    xCoordinate_++;
   }	
   drawCar();
 }
 
 bool Car::canMuveLeft() const 
 {
-  if (xCoordinate >= leftMargin) {
+  bool isLeftEndOfTrace = xCoordinate_ >= INT_CONST::CAR_LEFT_MARGIN;
+  if (isLeftEndOfTrace) {
 	return true;
   }
   return false;
@@ -79,7 +75,8 @@ bool Car::canMuveLeft() const
 
 bool Car::canMuveRight() const 
 {
-  if (xCoordinate <= trace->getWidth() - rightMargin) {
+  bool isRightEndOfTrace = xCoordinate_ <= trace_.getWidth() - INT_CONST::CAR_RIGHT_MARGIN;
+  if (isRightEndOfTrace) {
 	return true;
   }
   return false;
@@ -87,8 +84,10 @@ bool Car::canMuveRight() const
 
 bool Car::isCarCrashed() const 
 {
-  for (auto it = car.begin(); it < car.end(); ++it) {		
-	if (*(*it) == static_cast<char>(PixelFiller::TRACE_SPACE) || *(*it) == static_cast<char>(PixelFiller::OBSTACLE_BODY)) {
+  for (auto it = _car.begin(); it < _car.end(); ++it) {	
+	bool isCrash = *(*it) == PIXEL::TRACE_SPACE_PIXEL ||
+		           *(*it) == PIXEL::OBSTACLE_BODY_PIXEL;
+	if (isCrash) {
 	  return true;
 	}
   }

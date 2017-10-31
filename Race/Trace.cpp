@@ -1,54 +1,46 @@
 #include "stdafx.h"
 
-#include <vector>
 #include <iostream>
 
 #include "Trace.h"
-#include "PixelFiller.h"
+#include "Constants.h"
 
 Trace::Trace(int length, int width) : 
-	length(length = (length > minLengthOfTrace ? length : minLengthOfTrace)),
-	width(width = (width > minWidthOfTrace ? width : minWidthOfTrace)),
-	traceForRace(length) 
+	length_(length = (length > INT_CONST::MIN_LENGTH_OF_TRACE ? length : INT_CONST::MIN_LENGTH_OF_TRACE)),
+	width_(width = (width > INT_CONST::MIN_WIDTH_OF_TRACE ? width : INT_CONST::MIN_WIDTH_OF_TRACE)),
+	traceForRace_(length) 
 {}	
 
-Trace& Trace::operator= (Trace&& t) 
+std::vector<std::vector <char>>&  Trace::getTrace()
 {
-  if (this != &t) {
-	  this->length = t.getLength();
-	  this->width = t.getWidth();
+  bool empty = traceForRace_[0].empty();
+  if (empty) {		
+    createTrace(width_);
   }
-  return *this;
-};
-
-vector<vector <char>>&  Trace::getTrace()
-{
-  if (traceForRace[0].empty()) {		
-    createTrace(width);
-  }
-  return traceForRace;
+  return traceForRace_;
 }
 
 void Trace::displayTrace() const 
 {	
-  for (auto i = traceForRace.begin(); i < traceForRace.end(); ++i) {		
+  for (auto i = traceForRace_.begin(); i < traceForRace_.end(); ++i) {		
     for (auto j = i->begin(); j < i->end(); ++j) {			
-	  cout << *j;
+	  std::cout << *j;
 	}
-	cout << endl;
+	std::cout << std::endl;
   }
 }
 
 void Trace::createTrace(int width) 
 {	
-  for (auto i = traceForRace.begin(); i < traceForRace.end(); ++i) {		
-    vector<char> widthOfTrace(width);
+  for (auto i = traceForRace_.begin(); i < traceForRace_.end(); ++i) {		
+	  std::vector<char> widthOfTrace(width);
 	for (auto j = widthOfTrace.begin(); j < widthOfTrace.end(); ++j){
-	  if (j == widthOfTrace.begin() || j == (widthOfTrace.end() - 1)) {
-	    *j = static_cast<char> (PixelFiller::TRACE_WALL);
+	  bool isWallOfTrace = j == widthOfTrace.begin() || j == (widthOfTrace.end() - 1);
+	  if (isWallOfTrace) {
+	    *j = PIXEL::TRACE_WALL_PIXEL;
 	  }
 	  else {
-	    *j = static_cast<char> (PixelFiller::TRACE_SPACE);
+	    *j = PIXEL::TRACE_SPACE_PIXEL;
 	  }
 	}
 	*i = widthOfTrace;
@@ -57,10 +49,10 @@ void Trace::createTrace(int width)
 
 int Trace::getLength() const 
 {
-  return length;
+  return length_;
 }
 
 int Trace::getWidth() const 
 {
-  return width;
+  return width_;
 }

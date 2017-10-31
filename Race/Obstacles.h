@@ -3,11 +3,7 @@
 
 #include "stdafx.h"
 
-#include <map>
-
 #include "Trace.h"
-
-using namespace std;
 
 class Obstacles {
 public:
@@ -17,12 +13,10 @@ public:
 
 private:
   void clearArea();	
-  Trace* trace; 
-  int xCoordinate;
-  int yCoordinate;
-  static const int rightMargin = 3; //Indentation on the right, taking into account the wall of the route and the width of the obstacle
-  static const int bottomMargin = 2;
- 
+
+  Trace& trace_; 
+  int xCoordinate_;
+  int yCoordinate_;
 };
 #endif // !OBSTACLES_H
 

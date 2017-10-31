@@ -1,28 +1,25 @@
 #ifndef TRACE_H
 #define TRACE_H
 
-#include <vector>
-
 #include "stdafx.h"
 
-using namespace std;
+#include <vector>
 
 class Trace {
 public:
   Trace(int length, int width);
-  Trace& operator= (Trace&& t);
-  vector <vector <char>>& const getTrace();	
+  
+  std::vector <std::vector <char>>& const getTrace();	
   void displayTrace() const;
   int getWidth() const;
   int getLength() const;
 
-private:	
-  int length;
-  int width;
+private:	  
   void createTrace(int width);
-  vector<vector <char>> traceForRace;  
-  const int minLengthOfTrace = 10;
-  const int minWidthOfTrace = 10;
+
+  int length_;
+  int width_;
+  std::vector<std::vector <char>> traceForRace_;    
 };
 #endif // !TRACE_H
 

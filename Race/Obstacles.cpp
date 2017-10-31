@@ -1,48 +1,45 @@
 #include "stdafx.h"
 
-#include <vector>
-#include <iostream>
-#include <map>
 #include <time.h>
 
 #include "Trace.h"
 #include "Obstacles.h"
-#include "PixelFiller.h"
+#include "Constants.h"
 
-Obstacles::Obstacles(Trace& t)
+Obstacles::Obstacles(Trace& t) : trace_(t)
 {
-  srand(time(0));
-  trace = &t;
-  yCoordinate = 0;
-  xCoordinate = rand() % (trace->getWidth() - rightMargin) + 1;
+  srand(time(0));  
+  yCoordinate_ = 0;
+  xCoordinate_ = rand() % (trace_.getWidth() - INT_CONST::OBSTACL_RIGHT_MARGIN) + 1;
 }
 
 void Obstacles::drawObstacles()
 {
-  trace->getTrace()[yCoordinate][xCoordinate] = static_cast<char> (PixelFiller::OBSTACLE_BODY);
-  trace->getTrace()[yCoordinate + 1][xCoordinate] = static_cast<char> (PixelFiller::OBSTACLE_BODY);
-  trace->getTrace()[yCoordinate + 1][xCoordinate + 1] = static_cast<char> (PixelFiller::OBSTACLE_BODY);
-  trace->getTrace()[yCoordinate][xCoordinate + 1] = static_cast<char> (PixelFiller::OBSTACLE_BODY);
+  trace_.getTrace()[yCoordinate_][xCoordinate_] = PIXEL::OBSTACLE_BODY_PIXEL;
+  trace_.getTrace()[yCoordinate_ + 1][xCoordinate_] = PIXEL::OBSTACLE_BODY_PIXEL;
+  trace_.getTrace()[yCoordinate_ + 1][xCoordinate_ + 1] = PIXEL::OBSTACLE_BODY_PIXEL;
+  trace_.getTrace()[yCoordinate_][xCoordinate_ + 1] = PIXEL::OBSTACLE_BODY_PIXEL;
 }
 
 void Obstacles::clearArea() 
 {
-  trace->getTrace()[yCoordinate][xCoordinate] = static_cast<char> (PixelFiller::TRACE_SPACE);
-  trace->getTrace()[yCoordinate + 1][xCoordinate] = static_cast<char> (PixelFiller::TRACE_SPACE);
-  trace->getTrace()[yCoordinate + 1][xCoordinate + 1] = static_cast<char> (PixelFiller::TRACE_SPACE);
-  trace->getTrace()[yCoordinate][xCoordinate + 1] = static_cast<char> (PixelFiller::TRACE_SPACE);
+  trace_.getTrace()[yCoordinate_][xCoordinate_] = PIXEL::TRACE_SPACE_PIXEL;
+  trace_.getTrace()[yCoordinate_ + 1][xCoordinate_] = PIXEL::TRACE_SPACE_PIXEL;
+  trace_.getTrace()[yCoordinate_ + 1][xCoordinate_ + 1] = PIXEL::TRACE_SPACE_PIXEL;
+  trace_.getTrace()[yCoordinate_][xCoordinate_ + 1] = PIXEL::TRACE_SPACE_PIXEL;
 }
 
 void Obstacles::next()
 {
   clearArea();
-  yCoordinate++;
-  if (yCoordinate < trace->getLength() - bottomMargin) {
-    yCoordinate++;
+  yCoordinate_++;
+  bool isEndOfTrace = yCoordinate_ < trace_.getLength() - INT_CONST::OBSTACL_BOTTOM_MARGIN;
+  if (isEndOfTrace) {
+    yCoordinate_++;
   }
   else {
-    yCoordinate = 0;
-	xCoordinate = rand() % (trace->getWidth() - rightMargin) + 1;
+    yCoordinate_ = 0;
+	xCoordinate_ = rand() % (trace_.getWidth() - INT_CONST::OBSTACL_RIGHT_MARGIN) + 1;
   }
   drawObstacles();
 }
