@@ -146,16 +146,28 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractCar.h" />
+    <ClInclude Include="AbstractObstacle.h" />
+    <ClInclude Include="AbstractTrace.h" />
     <ClInclude Include="Car.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Obstacles.h" />
+    <ClInclude Include="RaceController.h" />
+    <ClInclude Include="RaceView.h" />
+    <ClInclude Include="StatisticData.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Trace.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AbstractCar.cpp" />
+    <ClCompile Include="AbstractTrace.cpp" />
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="Obstacles.cpp" />
     <ClCompile Include="Race.cpp" />
+    <ClCompile Include="RaceController.cpp" />
+    <ClCompile Include="RaceView.cpp" />
+    <ClCompile Include="StatisticData.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
