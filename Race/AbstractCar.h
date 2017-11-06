@@ -3,8 +3,6 @@
 
 #include "stdafx.h"
 
-#include <memory>
-
 #include "AbstractTrace.h"
 
 class AbstractCar {
@@ -20,8 +18,8 @@ protected:
   AbstractTrace& trace_;
   int xCoordinate_;
   int yCoordinate_;
-  std::vector <std::unique_ptr<char>> car_;
-
+  std::vector <char*> car_;
+  
 private:
   virtual void clearArea();
   virtual bool canMuveLeft() const;

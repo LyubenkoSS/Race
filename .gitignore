@@ -38,3 +38,5 @@ Debug/
 Race/Debug/
 *.sln
 *.obj
+*.aps
+*.rc

@@ -10,13 +10,7 @@ AbstractCar::AbstractCar(AbstractTrace& t) : trace_(t),
   car_.reserve(N::CAR_BODY_COUNT_PIXELS);
 };
 AbstractCar::~AbstractCar()
-{
-	/*for (auto it = car_.begin(); it < car_.end(); ++it) 
-	{
-	  delete *it;	 
-	}
-	car_.clear();*/
-}
+{}
 
 void AbstractCar::clearArea()
 {

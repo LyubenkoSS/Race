@@ -9,10 +9,6 @@ Car::Car(AbstractTrace& t) : AbstractCar(t)
 
 Car::~Car()
 {
-  /*for (auto it = car_.begin(); it < car_.end(); ++it) {
-    delete *it;
-  }*/
-  //car_.clear();
 }
 
 void Car::drawCar() {	
