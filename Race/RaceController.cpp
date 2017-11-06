@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include <Windows.h>
-#include <conio.h>
 #include <ctime>
 #include <iostream>
 
@@ -12,9 +11,10 @@
 #include "Constants.h"
 
 
-RaceController::RaceController(Trace& t, Car& c, Obstacles& o) : trace_(t), car_(c), obstacle(o)
+RaceController::RaceController(AbstractTrace& t, AbstractCar& c, AbstractObstacle& o) : trace_(t),
+                                                                                        car_(c),
+	                                                                                    obstacle(o)
 {
-
 }
 
 void RaceController::startGame()
@@ -25,38 +25,39 @@ void RaceController::startGame()
 
 	unsigned int start_time = clock();
 	StatisticData data;
-	RaceView view(trace_, car_, obstacle, data);
+	RaceView view(trace_, obstacle, data);
+
 	bool crashedCar = false;
 	bool enter = true;
 	bool pause = true;
 
 	while (enter) {
 		if (GetAsyncKeyState(VK_RETURN)) {
-		  pause = !pause;
+			pause = !pause;
 		}
 		if (GetAsyncKeyState(VK_ESCAPE)) {
-		  enter = false;
+			enter = false;
 		}
 		if (GetAsyncKeyState(VK_LEFT)) {
-		  car_.turnLeft();
+			car_.turnLeft();
 		}
 		if (GetAsyncKeyState(VK_RIGHT)) {
-		  car_.turnRight();
+			car_.turnRight();
 		}
 		if (GetAsyncKeyState(VK_UP)) {
-			bool isSpeedLessMax = speed < INT_CONST::MAXIMAL_SPEED_OF_CAR;
-		  if (isSpeedLessMax) {
-			speed++;			  
-		  }
+			bool isSpeedLessMax = speed < N::MAXIMAL_SPEED_OF_CAR;
+			if (isSpeedLessMax) {
+				speed++;
+			}
 		}
 		if (GetAsyncKeyState(VK_DOWN)) {
-		  if (speed != 1) {
-			speed--;
-		  } 
+			if (speed != 1) {
+				speed--;
+			}
 		}
 
 		view.render(pause, speed);
-		
+
 		if (car_.isCarCrashed()) {
 			enter = false;
 		}

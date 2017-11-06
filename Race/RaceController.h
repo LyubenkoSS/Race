@@ -3,32 +3,23 @@
 
 #include "stdafx.h"
 
-#include <Windows.h>
-#include <conio.h>
-#include <ctime>
-#include <iostream>
-
-#include "Trace.h"
+#include "AbstractTrace.h"
 #include "Car.h"
 #include "Obstacles.h"
-#include "StatisticData.h"
 #include "RaceView.h"
+#include "AbstractCar.h"
+#include "AbstractObstacle.h"
 
 using namespace std;
 
 class RaceController {
-  public:
-    RaceController(Trace& t, Car& c, Obstacles& o);
-	void startGame();
+public:
+  RaceController(AbstractTrace& t, AbstractCar& c, AbstractObstacle& o);
+  void startGame();
 
-  private:	
-	Trace& trace_;
-	Car& car_;
-	Obstacles& obstacle;	
+private:
+  AbstractTrace& trace_;
+  AbstractCar& car_;
+  AbstractObstacle& obstacle;
 };
-
-
-
-
 #endif // !RACE_CONTROLLER_H
-

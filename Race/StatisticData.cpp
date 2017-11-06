@@ -4,53 +4,52 @@
 
 #include "StatisticData.h"
 
-StatisticData::StatisticData() : speed_(1), distance_(0), startTime_(clock())
-{}
-
-StatisticData::StatisticData(const StatisticData& sd) : speed_(sd.getSpeed()), distance_(sd.getDistance()), startTime_(sd.getStartTime())
+StatisticData::StatisticData() : speed_(1), 
+                                 distance_(0), 
+	                             startTime_(clock())
 {}
 
 void StatisticData::setDistance(int distance)
 {
-	StatisticData::distance_ = distance;
+  StatisticData::distance_ = distance;
 }
 
 int StatisticData::getDistance() const
 {
-	return distance_;
+  return distance_;
 }
 
 void StatisticData::setSpeed(int speed)
 {
-	StatisticData::speed_ = speed;
+  StatisticData::speed_ = speed;
 }
 
 int StatisticData::getSpeed() const
 {
-	return speed_;
+  return speed_;
 }
 
 void StatisticData::setStartTime(int time)
 {
-	startTime_ = time;
+  startTime_ = time;
 }
 
 int StatisticData::getStartTime() const
 {
-	return startTime_;
+  return startTime_;
 }
 
 void StatisticData::increaseDistance()
 {
-	distance_++;
+  distance_++;
 }
 
 void StatisticData::increaseSpeed()
 {
-	speed_++;
+  speed_++;
 }
 
 void StatisticData::decreaseSpeed()
 {
-	speed_--;
+  speed_--;
 }

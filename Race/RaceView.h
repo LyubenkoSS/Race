@@ -3,27 +3,20 @@
 
 #include "stdafx.h"
 
-#include <Windows.h>
-#include <conio.h>
-#include <ctime>
-#include <iostream>
-
-#include "Trace.h"
-#include "Car.h"
-#include "Obstacles.h"
+#include "AbstractTrace.h"
 #include "StatisticData.h"
+#include "AbstractObstacle.h"
 
-class RaceView{
-  public:
-	RaceView(Trace& t, Car& c, Obstacles& o, StatisticData& s);
-	void render(bool,int);
+class RaceView {
+public:
+ RaceView(AbstractTrace& t, AbstractObstacle& o, StatisticData& s);
+  void render(bool&, int&);
 
-  private:
-    Trace& trace_;
-	Car& car_;
-	Obstacles& obstacle_;
-	StatisticData& data_;
+private:
+  AbstractTrace& trace_;
+  AbstractObstacle& obstacle_;
+  StatisticData& data_;
 
-	void clearscreen();
+  void clearscreen();
 };
 #endif // !RACE_VIEW_H

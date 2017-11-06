@@ -3,23 +3,14 @@
 
 #include "stdafx.h"
 
-#include <vector>
+#include "AbstractTrace.h"
 
-class Trace {
-public:
-  Trace(int length, int width);
+class Trace : public AbstractTrace {
+  public:
+	  Trace(int length, int width);
   
-  std::vector <std::vector <char>>& const getTrace();	
-  void displayTrace() const;
-  int getWidth() const;
-  int getLength() const;
-
-private:	  
-  void createTrace(int width);
-
-  int length_;
-  int width_;
-  std::vector<std::vector <char>> traceForRace_;    
+  private:	  
+    void createTrace(int width);   
 };
 #endif // !TRACE_H
 

@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 
-namespace INT_CONST { 
+namespace N { 
   static const int STEP_CHANGE_OF_FLOW_DELAy = 20;
   static const int MAXIMAL_SPEED_OF_CAR = 19;
   static const int FLOW_DELAY = 400;
@@ -20,7 +20,7 @@ namespace INT_CONST {
   static const int CAR_RIGHT_MARGIN = 4;
 }
 
-namespace PIXEL {
+namespace P {
   //Pixel for trace
   static const char TRACE_WALL_PIXEL = 222;
   static const char TRACE_SPACE_PIXEL = 32;

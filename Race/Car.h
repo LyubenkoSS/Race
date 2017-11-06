@@ -3,25 +3,15 @@
 
 #include "stdafx.h"
 
-#include "Trace.h"
+#include "AbstractTrace.h"
+#include "AbstractCar.h"
 
-class Car {
+class Car : public AbstractCar {
 public:
-  Car(Trace& t);	
-  void drawCar();
-  void turnLeft();
-  void turnRight();
-  bool isCarCrashed() const;
-	
-private:
-  void clearArea();
-  bool canMuveLeft() const;
-  bool canMuveRight() const;
-
-  Trace& trace_;
-  int xCoordinate_;
-  int yCoordinate_;
-  std::vector <char*> _car;  
+  Car(AbstractTrace& t);
+  ~Car();
+  void drawCar();  
+  bool isCarCrashed() const;	
 };
 #endif // !CAR_H
 

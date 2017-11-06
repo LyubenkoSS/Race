@@ -3,20 +3,21 @@
 
 #include "stdafx.h"
 
-#include "Trace.h"
+#include "AbstractTrace.h"
+#include "AbstractObstacle.h"
 
-class Obstacles {
+class Obstacles : public AbstractObstacle{
 public:
-  Obstacles(Trace& t);
+  Obstacles(AbstractTrace& t);
   void drawObstacles();
-  void next();
+  //void next();
 
 private:
-  void clearArea();	
+  //void clearArea();	
 
-  Trace& trace_; 
-  int xCoordinate_;
-  int yCoordinate_;
+  //AbstractTrace& trace_;
+  //int xCoordinate_;
+  //int yCoordinate_;
 };
 #endif // !OBSTACLES_H
 

@@ -6,7 +6,6 @@
 class StatisticData {
   public:
     StatisticData();
-	StatisticData(const StatisticData&);
 	int getSpeed() const;
 	void setSpeed(int);
 	int getDistance() const;
